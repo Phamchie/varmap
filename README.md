@@ -14,3 +14,10 @@ VarMap provides powerful features for extracting information from websites. User
 VarMap is not only useful for analyzing and extracting information from websites but also helps users check the security of a website. The tool can detect security vulnerabilities by searching for malicious code segments or weaknesses in the website's structure.
 
 In practice, the VarMap tool is capable of saving time, improving efficiency, and enhancing the ability to analyze information from websites. By combining the power of automation with user-friendly interfaces, VarMap is a valuable tool for anyone who needs to explore and extract information from websites effectively.
+
+# install
+1. open terminal or termux
+2. git clone https://github.com/Phamchie/varmap
+3. cd varmap
+4. pip3 install requests
+5. python3 varmap.py
