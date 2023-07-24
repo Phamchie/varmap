@@ -1,4 +1,4 @@
-# varmap
+
 <h2>Varmap V1.2
 VarMap Tool - Exploring Website Information</h2>
 <img src="https://raw.githubusercontent.com/Phamchie/varmap/main/Screenshot_2023-07-25-00-13-29-11.jpg">
