@@ -19,5 +19,5 @@ In practice, the VarMap tool is capable of saving time, improving efficiency, an
 1. open terminal or termux
 2. git clone https://github.com/Phamchie/varmap
 3. cd varmap
-4. pip3 install -r setup.txt
+4. pip3 install -r setup.txt or python3 setup.py
 5. python3 varmap.py
