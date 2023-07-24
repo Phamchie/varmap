@@ -13,26 +13,20 @@ Technology is constantly evolving, and websites have become an integral part of 
 4. pip3 install -r setup.txt or python3 setup.py
 5. python3 varmap.py
 
-# Payload
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Example HTML</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            color: blue;
-        }
-    </style>
-</head>
-<body>
-    <h1>Hello, World!</h1>
-    <p>--check => Start Checking URL</p>
-</body>
-</html>
+# Options
+1. -h, --help    show this help message and exit
+2. --url URL     URL target (ex : https://test.com)
+3. --check       Checking target URL
+4. --version     Checking Version Target URL
+5. --propertie   Scanning ALL Propertie URL Target
+6. --infomation  Scanning ALL Infomation URL Target
+7. --filter      Scanning ALL Filter URL Target
+8. --meta        Checking Items META URL target
+9. --link        Checking Items LINKS URL target
+10. --script      Checking Items script URL target
+11. --sqlscan     Payload Scan Vulnerable SQL injection
+12. --about       Show This About
+
 # SQLi Scan Vulnerable
 Demo : 
 <img src="https://raw.githubusercontent.com/Phamchie/varmap/main/Screenshot_2023-07-25-00-17-19-98.jpg">
