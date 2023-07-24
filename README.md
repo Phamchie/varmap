@@ -1,6 +1,7 @@
 # varmap
 Varmap V1.1
 VarMap Tool - Exploring Website Information
+<img src="https://raw.githubusercontent.com/Phamchie/varmap/main/Screenshot_2023-07-25-00-13-29-11.jpg">
 Technology is constantly evolving, and websites have become an integral part of modern life. However, with the increasing popularity of websites, managing information on them has also become more complex. That's where the VarMap tool comes in, providing an effective solution for scanning and discovering information from a website.
 
 VarMap, short for "Variable Mapping," is a scanning tool designed to search for and collect information from a specific website. By using VarMap, users can easily identify the structure and various components of the target website. This is extremely useful for analyzing and extracting information from large and complex websites.
