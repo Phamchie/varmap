@@ -4,6 +4,7 @@ VarMap Tool - Exploring Website Information</h2>
 <img src="https://raw.githubusercontent.com/Phamchie/varmap/main/Screenshot_2023-07-25-00-13-29-11.jpg">
 Technology is constantly evolving, and websites have become an integral part of modern life. However, with the increasing popularity of websites, managing information on them has also become more complex. That's where the VarMap tool comes in, providing an effective solution for scanning and discovering information from a website.
 
+# Details
 View More > https://ghostmanews.blogspot.com/2023/07/varmap-v12-varmap-tool-exploring.html?m=1 
 
 # install
