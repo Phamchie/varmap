@@ -5,6 +5,8 @@ VarMap Tool - Exploring Website Information
 Technology is constantly evolving, and websites have become an integral part of modern life. However, with the increasing popularity of websites, managing information on them has also become more complex. That's where the VarMap tool comes in, providing an effective solution for scanning and discovering information from a website.
 
 # install
+<img src="https://github.com/Phamchie/varmap/blob/main/Screenshot_2023-07-25-00-25-11-70.jpg?raw=true">
+
 1. open terminal or termux
 2. git clone https://github.com/Phamchie/varmap
 3. cd varmap
