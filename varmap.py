@@ -47,7 +47,7 @@ def __session__():
 		if CHECK:
 			start_time = datetime.datetime.now()
 			now_time = start_time.strftime("%H:%M:%S")
-			print("[{}] [info] starting check response from {}".format(URL, now_time))
+			print("[{}] [info] starting check response from {}".format(now_time, URL))
 			response = requests.get(URL)
 			if response.status_code == 200:
 				print(f"[{now_time}] [info] the target URL as responsed , status code : 200")
