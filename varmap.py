@@ -69,7 +69,7 @@ def __session__():
 						print("INFOMATION BASIC : ")
 						print(f"Info Show : {now_time}")
 						print("Target : {}".format(URL))
-						print("Version : {}".format(URL))
+						print("Version : {}".format(versions))
 						print("Path : {}".format(remove_now))
 						print("ID : {}".format(id_code))
 						print("MD5 : {}".format(md5_url))
