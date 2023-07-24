@@ -14,22 +14,25 @@ Technology is constantly evolving, and websites have become an integral part of 
 5. python3 varmap.py
 
 # Payload
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example HTML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: blue;
+        }
+    </style>
+</head>
 <body>
-  options:
-  -h, --help    show this help message and exit
-  --url URL     URL target (ex : https://test.com)
-  --check       Checking target URL
-  --version     Checking Version Target URL
-  --propertie   Scanning ALL Propertie URL Target
-  --infomation  Scanning ALL Infomation URL Target
-  --filter      Scanning ALL Filter URL Target
-  --meta        Checking Items META URL target
-  --link        Checking Items LINKS URL target
-  --script      Checking Items script URL target
-  --sqlscan     Payload Scan Vulnerable SQL injection
-  --about       Show This About
+    <h1>Hello, World!</h1>
+    <p>--check => Start Checking URL</p>
 </body>
-
+</html>
 # SQLi Scan Vulnerable
 Demo : 
 <img src="https://raw.githubusercontent.com/Phamchie/varmap/main/Screenshot_2023-07-25-00-17-19-98.jpg">
